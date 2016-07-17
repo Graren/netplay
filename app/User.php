@@ -12,7 +12,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','plan'
     ];
 
     /**
@@ -23,4 +23,10 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function reservation(){
+      return $this->hasOne('App\Reservation');
+    }
+
+    protected $table = 'users';
 }
