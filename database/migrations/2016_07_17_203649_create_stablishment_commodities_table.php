@@ -15,8 +15,8 @@ class CreateStablishmentCommoditiesTable extends Migration
         Schema::create('stablishment_commodities', function (Blueprint $table) {
           $table->integer('stablishment_id')->unsigned();
           $table->foreign('stablishment_id')->references('id')->on('stablishments')->onDelete('cascade');
-          $table->integer('commodities_id')->unsigned();
-          $table->foreign('commodities_id')->references('id')->on('commodities')->onDelete('cascade');
+          $table->integer('commodity_id')->unsigned();
+          $table->foreign('commodity_id')->references('id')->on('commodities')->onDelete('cascade');
           $table->integer('slots');
             });
     }

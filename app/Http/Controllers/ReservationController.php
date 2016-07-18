@@ -6,6 +6,13 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+use App\Reservation;
+use App\Stablishment;
+
+use Auth;
+
+use Validator;
+
 class ReservationController extends Controller
 {
     public function __construct()
@@ -22,7 +29,8 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        //
+        $reservations = Reservation::all();
+        return $reservations;
     }
 
     /**
@@ -43,7 +51,25 @@ class ReservationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = Auth::user();
+        $validator = Validator::make($request->all(), [
+            'stablishment_id' => 'required|exists:stablishments,id',
+            'start' => 'required',
+            'end' => 'required',
+            'commodity_id' => 'required|exists:commodities,id'
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['message' => $validator->messages()], 400);
+        }
+        $stablishment = Stablishment::where('id',$request->stablishment_id)->first();
+        $slots = $stablishment->commodities()->where('commodity_id',$request->commodity_id)->first()->pivot->slots;
+        if(Reservation::where('start','<=', $request->start)->where('end','>',$request->start)->where('commodity_id',$request->commodity_id)->where('stablishment_id',$request->stablishment_id)->count() >= $slots ){
+          return response()->json(['message' => 'That Time is Alredy Taken']);
+        }
+        $reservation = new Reservation($request->all());
+        $reservation->user_id= $user->id;
+        $reservation->save();
+        return response()->json(['message' => 'Reservation Created']);
     }
 
     /**

@@ -37,5 +37,10 @@ class CommoditiesTableSeeder extends Seeder
             'name' => 'BASIC Cafe',
           ],
         ];
+        App\Commodity::hydrate($commodities)->each(function($commodity) {
+            $commodity->exists = false;
+            $commodity->timestamps = false;
+            $commodity->save();
+        });
     }
 }

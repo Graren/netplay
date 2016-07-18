@@ -11,7 +11,8 @@ class Stablishment extends Model
     ];
 
     public function commodities(){
-      return $this->belongsToMany('App\Commodity','stablishment_commodities','stablishment_id','commodity_id');
+      return $this->belongsToMany('App\Commodity','stablishment_commodities','stablishment_id','commodity_id')
+      ->withPivot('slots');;
     }
 
     public function reservations(){
