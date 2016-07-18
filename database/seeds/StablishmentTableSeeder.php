@@ -61,7 +61,8 @@ class StablishmentTableSeeder extends Seeder
         App\Stablishment::get()->each(function($stablishment){
             $names = explode(' ', $stablishment->name);
             $name = $names[1];
-            if($name == "Ruby"){
+            if($name == "Ruby")
+            {
               $commodities =
               $stablishment->commodities()->attach([
                 1 =>['slots' => 18],
@@ -69,22 +70,22 @@ class StablishmentTableSeeder extends Seeder
                 3 =>['slots' => 24],
                 4 =>['slots' => 1],
                 5 =>['slots' => 1]
-              ]);
+                ]);
             }
-            else if ($name == "Java"){
+            else if ($name == "Java")
+            {
               $stablishment->commodities()->attach([
                 6 =>['slots' => 20],
                 2 =>['slots' => 11],
                 3 =>['slots' => 16]
-              ]
-            );
+                ]);
             }
-            else {
+            else
+            {
               $stablishment->commodities()->attach([
                 7 =>['slots' => 13],
                 8 =>['slots' => 12]
-              ]
-            );
+                ]);
             }
         });
     }

@@ -18,7 +18,7 @@ class CreateStablishmentCommoditiesTable extends Migration
           $table->integer('commodity_id')->unsigned();
           $table->foreign('commodity_id')->references('id')->on('commodities')->onDelete('cascade');
           $table->integer('slots');
-            });
+        });
     }
 
     /**
