@@ -23,6 +23,7 @@ Route::group(['prefix' => 'api'], function () {
     Route::post('signup', 'AuthenticateController@signup');
     //Reservation
     Route::resource('reservation', 'ReservationController');
+    Route::get('me/reservation','ReservationController@me');
     //Stablishment
     Route::resource('stablishment', 'StablishmentController');
     //Commodity

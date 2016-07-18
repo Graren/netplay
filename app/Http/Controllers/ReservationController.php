@@ -84,7 +84,21 @@ class ReservationController extends Controller
      */
     public function show($id)
     {
-        //
+        $reservation = Reservation::where('id',$id)->first();
+        if($reservation == null){
+          return response()->json(['message' => 'Reservation Not Found'],400);
+        }
+        return $reservation;
+    }
+
+    public function me()
+    {
+        $user = Auth::user();
+        $reservations = Reservation::where('user_id', $user->id)->get();
+        if($reservations == null){
+          return response()->json(['message' => 'Reservations not found'],400);
+        }
+        return $reservations;
     }
 
     /**
