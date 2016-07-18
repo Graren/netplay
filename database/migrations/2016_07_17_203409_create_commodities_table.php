@@ -15,7 +15,6 @@ class CreateCommoditiesTable extends Migration
         Schema::create('commodities', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('slots');
         });
     }
 
